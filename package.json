@@ -1,0 +1,22 @@
+{
+  "name": "opus-55-video",
+  "version": "1.0.0",
+  "description": "Remotion video: Claude Opus 5.5 review",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render Opus55 out/video.mp4",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.248",
+    "@remotion/bundler": "4.0.248",
+    "@remotion/renderer": "4.0.248",
+    "remotion": "4.0.248",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "typescript": "5.5.3"
+  }
+}
