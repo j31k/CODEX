@@ -1,10 +1,28 @@
 import React from 'react';
-import {useCurrentFrame, Sequence, Audio, staticFile} from 'remotion';
-import {C, ease, seg} from '../lib/design';
+import {useCurrentFrame, Sequence, Audio, staticFile, OffthreadVideo} from 'remotion';
+import {ease, seg} from '../lib/design';
 import {DarkSoulsGame} from '../demos/DarkSoulsGame';
 import {MarioKartGame} from '../demos/MarioKartGame';
 import {GenerativeArt} from '../demos/JsAnimScene';
 import {OrangeAsterisk} from '../components/primitives';
+import montage from '../montage.json';
+
+// Real recording from public/video-montage/ when present, coded demo otherwise
+export const DemoClip: React.FC<{
+  src: string | null;
+  startFrom?: number;
+  fallback: React.ReactNode;
+}> = ({src, startFrom = 15, fallback}) => {
+  if (!src) return <>{fallback}</>;
+  return (
+    <OffthreadVideo
+      src={staticFile(src)}
+      startFrom={startFrom}
+      muted
+      style={{width: '100%', height: '100%', objectFit: 'cover'}}
+    />
+  );
+};
 
 const Flash: React.FC<{frame: number; children: React.ReactNode}> = ({frame, children}) => {
   // white punch at cut boundaries
@@ -23,17 +41,26 @@ export const S01ColdOpen: React.FC = () => {
     <div style={{width: 1920, height: 1080, background: '#000', position: 'relative', overflow: 'hidden'}}>
       {frame < 36 && (
         <Flash frame={frame}>
-          <DarkSoulsGame mode="full" startFrame={192} showHud={false} />
+          <DemoClip
+            src={montage.souls}
+            fallback={<DarkSoulsGame mode="full" startFrame={192} showHud={false} />}
+          />
         </Flash>
       )}
       {frame >= 36 && frame < 72 && (
         <Flash frame={frame - 36}>
-          <MarioKartGame mode="fixed" startFrame={150} showHud={false} />
+          <DemoClip
+            src={montage.kart}
+            fallback={<MarioKartGame mode="fixed" startFrame={150} showHud={false} />}
+          />
         </Flash>
       )}
       {frame >= 72 && frame < 108 && (
         <Flash frame={frame - 72}>
-          <GenerativeArt frame={frame * 2} variant={3} width={1920} height={1080} />
+          <DemoClip
+            src={montage.js}
+            fallback={<GenerativeArt frame={frame * 2} variant={3} width={1920} height={1080} />}
+          />
         </Flash>
       )}
       {frame >= 108 && (

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Audio, useCurrentFrame, staticFile, Sequence} from 'remotion';
 import {C, F, rand} from '../lib/design';
-import {Captions} from './Captions';
 
 export type Chapter = {name: string; color?: string};
 
@@ -147,11 +146,8 @@ export const Stage: React.FC<{
         </div>
       )}
 
-      {captions && voiceSec > 0 && (
-        <Captions phrases={captions} voiceSec={voiceSec} preDelay={preDelay} />
-      )}
+      {/* субтитры и озвучка отключены по запросу */}
 
-      {audio && <Audio src={staticFile(audio)} />}
       {sfxAt.map((s, i) => (
         <Sequence key={i} from={s.frame} durationInFrames={60}>
           <Audio src={staticFile(s.src)} volume={s.volume ?? 0.7} />

@@ -6,6 +6,8 @@ import {Stamp, FadeSlide} from '../components/primitives';
 import {DarkSoulsGame} from '../demos/DarkSoulsGame';
 import {MarioKartGame} from '../demos/MarioKartGame';
 import {GenerativeArt} from '../demos/JsAnimScene';
+import {DemoClip} from './S01ColdOpen';
+import montage from '../montage.json';
 
 const Thumb: React.FC<{
   frame: number;
@@ -117,13 +119,25 @@ export const S02Hook: React.FC<{
 
         <div style={{display: 'flex', gap: 44, marginTop: 56}}>
           <Thumb frame={frame} start={30} label="DARK SOULS" sub="копия · боёвка · перекаты" tilt={-2.5}>
-            <DarkSoulsGame mode="full" frame={150 + (frame % 240)} showHud={false} width={500} height={280} />
+            <DemoClip
+              src={montage.souls}
+              startFrom={45}
+              fallback={<DarkSoulsGame mode="full" frame={150 + (frame % 240)} showHud={false} width={500} height={280} />}
+            />
           </Thumb>
           <Thumb frame={frame} start={52} label="MARIO KART" sub="трасса · дрифт · соперники" tilt={1.8}>
-            <MarioKartGame mode="fixed" startFrame={160} showHud={false} width={500} height={280} />
+            <DemoClip
+              src={montage.kart}
+              startFrom={45}
+              fallback={<MarioKartGame mode="fixed" startFrame={160} showHud={false} width={500} height={280} />}
+            />
           </Thumb>
           <Thumb frame={frame} start={74} label="JS-АНИМАЦИЯ" sub="одна фраза → живой код" tilt={-1.4}>
-            <GenerativeArt frame={frame * 2} variant={3} width={500} height={280} />
+            <DemoClip
+              src={montage.js}
+              startFrom={45}
+              fallback={<GenerativeArt frame={frame * 2} variant={3} width={500} height={280} />}
+            />
           </Thumb>
         </div>
 

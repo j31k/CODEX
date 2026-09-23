@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Remotion video: Claude Opus 5.5 review",
   "scripts": {
+    "predev": "node scripts/check-montage.js",
     "dev": "remotion studio",
+    "prerender": "node scripts/check-montage.js",
     "render": "remotion render Opus55 out/video.mp4",
     "upgrade": "remotion upgrade"
   },
